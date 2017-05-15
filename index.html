@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stellar Paper wallet generator</title>
+  <!-- You can diff: https://raw.githubusercontent.com/stellar/bower-js-stellar-base/f7ed5511dc880769e96cd945e1d2b6c2151cf8b7/stellar-base.min.js -->
+  <script type="text/javascript" src="stellar-base.min.js"></script>
+  <!-- You can diff: https://raw.githubusercontent.com/davidshimjs/qrcodejs/04f46c6a0708418cb7b96fc563eacae0fbf77674/qrcode.min.js -->
+  <script type="text/javascript" src="qrcode.min.js"></script>
+  <style type="text/css">
+    body {
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    div {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="public"></div>
+<div id="public_qr"></div>
+<div id="secret"></div>
+<div id="secret_qr"></div>
+
+<button onclick="generate()">Generate</button>
+
+<script type="text/javascript">
+  function generate() {
+    var keypair = StellarBase.Keypair.random();
+    document.getElementById("public").innerText = keypair.publicKey();
+    document.getElementById("secret").innerText = keypair.secret();
+
+    document.getElementById("public_qr").innerHTML = "";
+    document.getElementById("secret_qr").innerHTML = "";
+
+    new QRCode(document.getElementById("public_qr"), keypair.publicKey());
+    new QRCode(document.getElementById("secret_qr"), keypair.secret());
+  }
+</script>
+
+</body>
+</html>
