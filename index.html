@@ -2,10 +2,10 @@
 <html>
 <head>
   <title>Stellar Lumens Paper wallet generator</title>
-  <!-- You can diff: https://raw.githubusercontent.com/stellar/bower-js-stellar-base/f7ed5511dc880769e96cd945e1d2b6c2151cf8b7/stellar-base.min.js -->
-  <script type="text/javascript" src="stellar-base.min.js"></script>
-  <!-- You can diff: https://raw.githubusercontent.com/davidshimjs/qrcodejs/04f46c6a0708418cb7b96fc563eacae0fbf77674/qrcode.min.js -->
-  <script type="text/javascript" src="qrcode.min.js"></script>
+  <!-- curl https://raw.githubusercontent.com/stellar/bower-js-stellar-base/f7ed5511dc880769e96cd945e1d2b6c2151cf8b7/stellar-base.min.js | openssl dgst -sha384 -binary | openssl enc -base64 -A -->
+  <script type="text/javascript" src="stellar-base.min.js" integrity="sha384-wm2ZBJMcLtePR9Bp/wQebZrPUWAzO1LnGySDR4V7ILUD1G3NFTeX0Dbkf4Zr+TFg" crossorigin="anonymous"></script>
+  <!-- curl https://raw.githubusercontent.com/davidshimjs/qrcodejs/04f46c6a0708418cb7b96fc563eacae0fbf77674/qrcode.min.js  | openssl dgst -sha384 -binary | openssl enc -base64 -A -->
+  <script type="text/javascript" src="qrcode.min.js" integrity="sha384-3zSEDfvllQohrq0PHL1fOXJuC/jSOO34H46t6UQfobFOmxE5BpjjaIJY5F2/bMnU" crossorigin="anonymous"></script>
   <style type="text/css">
     body {
       font-family: monospace;
