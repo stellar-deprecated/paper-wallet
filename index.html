@@ -1,44 +1,297 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Stellar Lumens Paper wallet generator</title>
-  <!-- curl https://raw.githubusercontent.com/stellar/bower-js-stellar-base/f7ed5511dc880769e96cd945e1d2b6c2151cf8b7/stellar-base.min.js | openssl dgst -sha384 -binary | openssl enc -base64 -A -->
-  <script type="text/javascript" src="stellar-base.min.js" integrity="sha384-wm2ZBJMcLtePR9Bp/wQebZrPUWAzO1LnGySDR4V7ILUD1G3NFTeX0Dbkf4Zr+TFg" crossorigin="anonymous"></script>
-  <!-- curl https://raw.githubusercontent.com/davidshimjs/qrcodejs/04f46c6a0708418cb7b96fc563eacae0fbf77674/qrcode.min.js  | openssl dgst -sha384 -binary | openssl enc -base64 -A -->
-  <script type="text/javascript" src="qrcode.min.js" integrity="sha384-3zSEDfvllQohrq0PHL1fOXJuC/jSOO34H46t6UQfobFOmxE5BpjjaIJY5F2/bMnU" crossorigin="anonymous"></script>
-  <style type="text/css">
-    body {
-      font-family: monospace;
-      font-size: 14px;
-    }
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Stellar Lumens Paper Wallet Generator</title>
 
-    div {
-      margin-bottom: 10px;
-    }
+  <link rel="apple-touch-icon" sizes="57x57" href="/favicons.ico/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/favicons.ico/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/favicons.ico/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/favicons.ico/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/favicons.ico/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/favicons.ico/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/favicons.ico/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/favicons.ico/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons.ico/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/favicons.ico/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons.ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicons.ico/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons.ico/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <script type="text/javascript" src="/js/stellar-base.min.js" integrity="sha384-wm2ZBJMcLtePR9Bp/wQebZrPUWAzO1LnGySDR4V7ILUD1G3NFTeX0Dbkf4Zr+TFg" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/js/qrcode.min.js" integrity="sha384-3zSEDfvllQohrq0PHL1fOXJuC/jSOO34H46t6UQfobFOmxE5BpjjaIJY5F2/bMnU" crossorigin="anonymous"></script>
+  <link href="/css/uikit.css?nc=6940" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+  <!-- UIkit JS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/css/theme.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <script src="/js/uikit.min.js"></script>
+  <script src="/js/uikit-icons.min.js">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+  <style>
+        @media print {
+      .no-print {
+        visibility: hidden;
+      }
+      }
+    .card-badge-override{
+      position: absolute;
+      top: 1rem !important;
+      right: 1rem !important;
+      z-index: 1;
+}
+
+      .container-new {
+      position: relative;
+      text-align: center;
+      display: block;
+      height: 100%;
+      }
+      .container-new::before, .container .box {
+      display: inline-block;
+      vertical-align: middle;
+      border: 1px solid red;
+      }
+      .container-new::before {
+      content: '';
+      width: 0;
+      height: 100%;
+      }
+
   </style>
 </head>
-<body>
+<body class="">
+    <!-- Begin nav -->
+  <div class="uk-offcanvas-content">
+    <div uk-sticky="media: 960" class="uk-navbar-container tm-navbar-container uk-sticky no-print">
+      <div class="uk-container uk-container-expand">
+        <nav class="uk-navbar">
+          <div class="uk-navbar-left">
+            <a href="../" class="uk-navbar-item uk-logo"><img uk-svg="" src="" class="uk-margin-small-right" hidden="true">
+              Stellar Paper Wallet
+            </a>
+          </div>
+          <div class="uk-navbar-right">
 
-<div id="public"></div>
-<div id="public_qr"></div>
-<div id="secret"></div>
-<div id="secret_qr"></div>
+            <a uk-navbar-toggle-icon="" href="#offcanvas" uk-toggle="" class="uk-navbar-toggle uk-hidden@m uk-navbar-toggle-icon uk-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1">
+                <rect y="9" width="20" height="2"></rect>
+                <rect y="3" width="20" height="2"></rect>
+                <rect y="15" width="20" height="2"></rect>
+              </svg>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!-- End nav -->
+    <!-- Start explainer body -->
+    <div class="uk-container uk-container-large uk-position-relative no-print" ukgrid style="margin-top: 2rem; margin-bottom: 0rem !important;">
+        <div class="tm-main uk-section uk-section-default">
+          <div class="uk-container uk-container-large uk-position-relative " style="margin-top: 0rem !important;">
+                <div class="uk-card uk-card-default uk-card-body ">
+                  <div class="uk-overflow-auto">
+                          <h3> Generate Paper Wallet</h3>
+                          <p> For long-term storage of Stellar Lumens (or giving as gifts) it's not safe to store your Stellar Lumens in an exchange or online wallet. These types of sites are regularly hacked. Even keeping a live wallet on your own computer can be risky.</p>
+                          <p> By printing out your own tamper-resistant bitcoin wallets and generating your own addresses, you can minimize your exposure to hackers as well as untrustworthy people in your home or office. Just transfer your Stellar Lumens into your new wallets, and use common sense to keep your wallets safe the way you would jewels and ordinary cash. Or give them away!
+                              <div style="float:right">
+                                  <button class="uk-button uk-button-primary" style="margin-top:2rem !important;margin:right:1rem !important;" onclick="generate()">Generate</button>
+                                  <button class="uk-button uk-button-primary" style="margin-top:2rem !important;" onclick="generate_and_save()" id="print-button" disabled>Print</button>
+                              </div>
+                  </div>
+                </div>
+          </div>
+      </div>
+    </div>
+    <!-- End explainer body -->
+    <!-- Start wallet body -->
+    <div class="uk-container uk-container-large uk-position-relative"  id="wallet_main" ukgrid style="display:none;margin-top: 2rem; margin-bottom: 0rem !important;">
+        <div class="tm-main uk-section uk-section-default">
+          <div class="uk-container uk-container-large uk-position-relative " style="margin-top: 0rem !important;">
+                <div class="">
+                  <div class="">
+                          <div class=" uk-child-width-expand@s  uk-text-center" uk-height-match="target: > div > .uk-padding > .uk-card > .uk-card-header" uk-grid>
+                          <!-- Public QR div -->
+                          <div class="uk-width-1-4@m">
+                              <div class="uk-padding">
+                                  <div class="uk-card uk-card-default uk-width-1-1@m">
+                                    <div class="uk-card-header" style="padding:1rem !important;">
+                                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                            <div class="uk-card-badge card-badge-override uk-label">Share</div>
+                                            <div class="uk-width-auto">
+                                                <div id="public_qr" style="margin-top:2.5rem !important;"></div>
+                                            </div>
+                                            <div class="uk-width-expand">
+                                                <p class="uk-margin-remove-bottom">PUBLIC</p>
 
-<button onclick="generate()">Generate</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                          <!-- Raw text div -->
+                          <div class="uk-width-expand@m">
 
-<script type="text/javascript">
-  function generate() {
-    var keypair = StellarBase.Keypair.random();
-    document.getElementById("public").innerText = keypair.publicKey();
-    document.getElementById("secret").innerText = keypair.secret();
+                                <div class="uk-card uk-card-default uk-card-body">
+                                  <span>Public Key</span>
+                                  <p  style="word-wrap:break-word" id="public"></p>
+                                </div>
+                                  <br>
+                                <div class="uk-card uk-card-default uk-card-body">
+                                  <span>Secret</span>
+                                  <p  style="word-wrap:break-word" id="secret">
+                                </div>
 
-    document.getElementById("public_qr").innerHTML = "";
-    document.getElementById("secret_qr").innerHTML = "";
+                          </div>
+                          <!-- Private QR div -->
+                          <div class="uk-width-1-4@m">
+                              <div class="uk-padding">
+                                  <div class="uk-card uk-card-default uk-width-1-1@m">
+                                    <div class="uk-card-header" style="padding:1rem !important;">
+                                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                            <div class="uk-card-badge card-badge-override uk-label">Save</div>
+                                            <div class="uk-width-auto">
+                                                <div id="secret_qr" style="margin-top:2.5rem !important;"></div>
+                                            </div>
+                                            <div class="uk-width-expand">
+                                                <p class="uk-margin-remove-bottom">PRIVATE</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-    new QRCode(document.getElementById("public_qr"), keypair.publicKey());
-    new QRCode(document.getElementById("secret_qr"), keypair.secret());
-  }
-</script>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+          </div>
+      </div>
+  </div>
+  <!-- End wallet body -->
+
+  <script type="text/javascript">
+
+
+    function generate() {
+
+      // Hide the wallet display div and deactivate the print button before generating the key
+      $("#wallet_main").hide();
+      $("#print-button").attr('disabled',true);
+
+      var keypair = StellarBase.Keypair.random();
+      var publicKey = keypair.publicKey();
+      var privateKey = keypair.secret();
+      
+      document.getElementById("public").innerText =  publicKey;
+      document.getElementById("secret").innerText =  privateKey;
+
+      document.getElementById("public_qr").innerHTML = "";
+      document.getElementById("secret_qr").innerHTML = "";
+
+      new QRCode(document.getElementById("public_qr"), keypair.publicKey());
+      new QRCode(document.getElementById("secret_qr"), keypair.secret());
+
+      // Show the wallet display div and deactivate the print button after generating the key
+      $("#wallet_main").show();
+      $("#print-button").attr('disabled',false);
+
+    }
+
+
+    // Runs when print button is pressed.
+    function generate_and_save(){
+      
+      var privateKey = document.getElementById("secret").innerText;
+      var publicKey = document.getElementById("public").innerText;
+      var publicQR = $("#public_qr img").attr('src');
+      var privateQR = $("#secret_qr img").attr('src');      
+      var publicQR = publicQR;
+      var privateQR = privateQR;
+      var doc = new jsPDF('landscape');
+      var privateKey = privateKey;
+      var publicKey = publicKey;
+
+      //Border
+      doc.setDrawColor(0,0,0);
+      doc.setLineWidth(1.4);
+      doc.line(0, 105, 302, 105);
+      doc.line(0, 0, 0, 105);
+      doc.setLineWidth(3.4);
+      doc.line(0, 0, 0, 105);
+      doc.line(0, 0, 302, 0);
+      
+      doc.setLineWidth(1.6);
+      doc.line(296.45,105,296.45,0);
+
+      doc.setLineWidth(1.4);
+      doc.line(35, 0, 35, 105);
+
+      // Side graphics
+      doc.setFontSize(32);
+      doc.setTextColor(13,184,232);
+      doc.setFontType("bold");
+      doc.text(22,88.5,  "LUMEN / XLM",null,90);
+
+
+      doc.setFont("helvetica");
+      doc.setFontType("bold");
+      doc.setFontSize(12);
+      doc.setTextColor(13,184,232);
+
+      // Address and Private key text for QR Code
+      doc.text(101.5,52,  "YOUR ADDRESS",null,90);
+      doc.text(286,55, "YOUR PRIVATE KEY",null,90);
+      //Public address in QR form
+      doc.addImage(publicQR, 'PNG', 45, 10, 0, 50);
+      //Private address in QR form
+      doc.addImage(privateQR, 'PNG', 230, 10, 50, 50);
+
+      doc.setTextColor(0,0,0);
+      doc.setFontType("normal");
+
+      doc.setLineWidth(.5);
+      doc.setDrawColor(13,184,232);
+
+      // Amount box
+      doc.text(129,26.5, "AMOUNT");
+      doc.setDrawColor(0,0,0);
+      doc.rect(125, 20, 80, 10);
+
+      //Date box
+      doc.setDrawColor(0,0,0);
+      doc.text(129,41.5, "DATE")
+      doc.rect(125, 35, 80, 10);
+
+      // Print the public address in plain text
+
+      doc.setFontType("bold");
+      doc.text(45, 75 , "YOUR ADDRESS :");
+
+      doc.setFontType("normal");
+      doc.text(45, 82 , publicKey);
+
+      // Print the private key in plain text
+
+      doc.setFontType("bold");
+      doc.text(45, 92 , "YOUR PRIVATE KEY :");
+
+      doc.setFontType("normal");
+      doc.text(45, 99, privateKey);
+
+      // Save the wallet here
+      doc.save('stellar-lumen-wallet.pdf')
+
+
+    }
+  </script>
 
 </body>
 </html>
