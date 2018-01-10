@@ -30,8 +30,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="/css/theme.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <script src="/js/uikit.js"></script>
-  <script src="/js/uikit-icons.js">
+  <script src="/js/uikit.min.js"></script>
+  <script src="/js/uikit-icons.min.js">
   </script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
   <style>
@@ -227,8 +227,11 @@
       doc.setLineWidth(3.4);
       doc.line(0, 0, 0, 105);
       doc.line(0, 0, 302, 0);
+      
+      doc.setLineWidth(1.6);
+      doc.line(296.45,105,296.45,0);
+
       doc.setLineWidth(1.4);
-      doc.line(296,105,296,0);
       doc.line(35, 0, 35, 105);
 
       // Side graphics
