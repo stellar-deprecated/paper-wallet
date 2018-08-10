@@ -2,6 +2,19 @@
 <html>
 <head>
   <title>Stellar Lumens Paper wallet generator</title>
+  <!-- curl https://raw.githubusercontent.com/stellar/bower-js-stellar-base/f7ed5511dc880769e96cd945e1d2b6c2151cf8b7/stellar-base.min.js | openssl dgst -sha384 -binary | openssl enc -base64 -A -->
+  <script type="text/javascript" src="stellar-base.min.js" integrity="sha384-wm2ZBJMcLtePR9Bp/wQebZrPUWAzO1LnGySDR4V7ILUD1G3NFTeX0Dbkf4Zr+TFg" crossorigin="anonymous"></script>
+  <!-- curl https://raw.githubusercontent.com/davidshimjs/qrcodejs/04f46c6a0708418cb7b96fc563eacae0fbf77674/qrcode.min.js  | openssl dgst -sha384 -binary | openssl enc -base64 -A -->
+  <script type="text/javascript" src="qrcode.min.js" integrity="sha384-3zSEDfvllQohrq0PHL1fOXJuC/jSOO34H46t6UQfobFOmxE5BpjjaIJY5F2/bMnU" crossorigin="anonymous"></script>
+  <style type="text/css">
+    body {
+      font-family: monospace;
+      font-size: 14px;
+    }
+    div {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
 
@@ -12,20 +25,29 @@
 </p>
 
 <p>
-  Please use <code>stellar-hd-wallet</code>. It's a command line application that generates a mnemonic seed (24 words) that derives Stellar key pairs. It's much easier to store (you can just write it down) and do not require a printer.
+  Please use  <a href="https://github.com/stellar/go/releases/tag/stellar-hd-wallet-v0.0.2"><code>stellar-hd-wallet</code></a>. It's a command line application that generates a mnemonic seed (24 words) that derives Stellar key pairs. It's much easier to store (you can just write it down) and do not require a printer.
 </p>
 
-<ol>
-  <li>Download <code>stellar-hd-wallet</code> from Stellar GitHub: <a href="https://github.com/stellar/go/releases/tag/stellar-hd-wallet-v0.0.2">https://github.com/stellar/go/releases/tag/stellar-hd-wallet-v0.0.2</a></li>
-  <li>Unpack a downloaded zip file.</li>
-  <li>Open a terminal window and navigate to a folder where the archive was unpacked.</li>
-  <li>
-    To generate a mnemonic seed run:<br />
-    <code>stellar-hd-wallet new</code><br />
-    It will display 24 words one by one. Write them your mnemonic seed and store in a safe place. <strong>Never share your words!</strong>
-  </li>
-  <li>To display Stellar key pair for your seed run:<br /><code>stellar-hd-wallet accounts</code></li>
-</ol>
+<p>If you still want to use this tool press the button below:</p>
+
+<button onclick="generate()">Generate</button>
+
+<div id="public"></div>
+<div id="public_qr"></div>
+<div id="secret"></div>
+<div id="secret_qr"></div>
+
+<script type="text/javascript">
+  function generate() {
+    var keypair = StellarBase.Keypair.random();
+    document.getElementById("public").innerText = keypair.publicKey();
+    document.getElementById("secret").innerText = keypair.secret();
+    document.getElementById("public_qr").innerHTML = "";
+    document.getElementById("secret_qr").innerHTML = "";
+    new QRCode(document.getElementById("public_qr"), keypair.publicKey());
+    new QRCode(document.getElementById("secret_qr"), keypair.secret());
+  }
+</script>
 
 </body>
 </html>
